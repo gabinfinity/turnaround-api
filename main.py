@@ -4,6 +4,7 @@ import flask
 import json
 import time
 import os
+from flask_cors import CORS
 
 def setup_solver(): #please body dont sue me
     if not os.path.exists("utils"): os.mkdir("utils")
@@ -15,6 +16,7 @@ def setup_solver(): #please body dont sue me
 
 setup_solver()
 app = flask.Flask(__name__)
+CORS(app)
 from utils import solver
 
 @app.route("/")
@@ -41,4 +43,4 @@ def make_response(captcha_key):
     return flask.jsonify({"status": "success", "token": captcha_key})
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
